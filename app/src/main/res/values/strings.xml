@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Tech Moda</string>
+    <string name="prefs_file">com.techmoda.PREFERENCE_FILE_KEY</string>
 </resources>

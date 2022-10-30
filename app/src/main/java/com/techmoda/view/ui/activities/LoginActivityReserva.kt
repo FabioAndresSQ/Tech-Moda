@@ -1,25 +1,37 @@
 package com.techmoda.view.ui.activities
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.techmoda.MainActivity
 import com.techmoda.ProviderType
 import com.techmoda.R
 import java.lang.Exception
 
 class LoginActivityReserva : AppCompatActivity() {
-
+    private val GOOGLE_SIGN_IN = 100
     private lateinit var txtEmailLogin : EditText
     private lateinit var txtPasswordLogin : EditText
     private lateinit var loginBtn : Button
     private lateinit var goToRegistrarBtn : Button
+    private lateinit var loginLayout : ScrollView
+    private lateinit var googleLoginBtn : ImageButton
+    private lateinit var facebookLoginBtn : ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +41,9 @@ class LoginActivityReserva : AppCompatActivity() {
         txtPasswordLogin = findViewById(R.id.txtPasswordLogin)
         loginBtn = findViewById(R.id.loginBtn)
         goToRegistrarBtn = findViewById(R.id.goToRegistrarBtn)
+        loginLayout = findViewById(R.id.loginLayout)
+        googleLoginBtn = findViewById(R.id.googleLoginBtn)
+        facebookLoginBtn = findViewById(R.id.facebookLoginBtn)
 
         //Analytics Events
         val analytics = FirebaseAnalytics.getInstance(this)
@@ -38,6 +53,24 @@ class LoginActivityReserva : AppCompatActivity() {
 
         //Start Components
         setup()
+        sesion()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        loginLayout.visibility = View.VISIBLE
+    }
+
+    private fun sesion(){
+
+        val prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
+        val savedEmail = prefs.getString("email", null)
+        val savedProvider = prefs.getString("provider", null)
+
+        if (savedEmail != null && savedProvider != null){
+            loginLayout.visibility = View.INVISIBLE
+            showHomePage(savedEmail, ProviderType.valueOf(savedProvider))
+        }
 
     }
 
@@ -61,9 +94,46 @@ class LoginActivityReserva : AppCompatActivity() {
                 }
             }
         }
+
         goToRegistrarBtn.setOnClickListener {
             val registerIntent = Intent(this, RegistrarseActivity::class.java).apply { } //Edit for new
             startActivity(registerIntent)
+        }
+
+        googleLoginBtn.setOnClickListener {
+            val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail().build()
+
+            val googleClient : GoogleSignInClient = GoogleSignIn.getClient(this, googleConf)
+            googleClient.signOut()
+            startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == GOOGLE_SIGN_IN){
+            val task:Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                if (account != null) {
+                    val credential: AuthCredential =
+                        GoogleAuthProvider.getCredential(account.idToken, null)
+                    FirebaseAuth.getInstance().signInWithCredential(credential)
+                        .addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                Toast.makeText(this, "Successful", Toast.LENGTH_SHORT).show()
+                                showHomePage(it.result?.user?.email ?: "", ProviderType.GOOGLE)
+                            } else {
+                                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                                showErrorAlert("Error al autenticar con Google")
+                            }
+                        }
+                }
+            } catch (e : ApiException){
+                showErrorAlert("Error al autenticar con Google")
+            }
         }
     }
 

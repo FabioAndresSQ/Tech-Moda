@@ -1,5 +1,6 @@
 package com.techmoda.view.ui.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -21,21 +22,35 @@ class HomeActivity : AppCompatActivity() {
         providerLbl = findViewById(R.id.providerLbl)
         logOutBtn = findViewById(R.id.logOutBtn)
 
-        val email = intent.extras?.get("email")
-        val provider = intent.extras?.get("provider")
+        val email = intent.extras?.getString("email")
+        val provider = intent.extras?.getString("provider")
 
-        emailLbl.text = "Email: " + email.toString()
-        providerLbl.text = "register method: " + provider.toString()
+        emailLbl.text = "Email: " + email
+        providerLbl.text = "register method: " + provider
 
-        logOutBtn.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            showLogin()
-        }
+        setup()
+
+        //Guardado de datos y Credenciales
+        val prefs = getSharedPreferences(getString(R.string.prefs_file),Context.MODE_PRIVATE).edit()
+        prefs.putString("email", email)
+        prefs.putString("provider", provider)
+        prefs.apply()
     }
 
     override fun onBackPressed() {
-        //super.onBackPressed()
+        super.onBackPressed()
 
+    }
+
+    private fun setup(){
+        //Log out
+        logOutBtn.setOnClickListener {
+            val prefs = getSharedPreferences(getString(R.string.prefs_file),Context.MODE_PRIVATE).edit()
+            prefs.clear()
+            prefs.apply()
+            FirebaseAuth.getInstance().signOut()
+            showLogin()
+        }
     }
 
     //Start Login activity

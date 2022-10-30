@@ -8,7 +8,7 @@
     tools:context=".view.ui.activities.LoginActivityReserva">
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/loginLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -103,7 +103,7 @@
                     app:srcCompat="@drawable/ic_googlelogo" />
 
                 <ImageButton
-                    android:id="@+id/facebookLoginbtn"
+                    android:id="@+id/facebookLoginBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"

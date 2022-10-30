@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.4.2'
     implementation 'com.google.firebase:firebase-analytics:21.2.0'
     implementation 'com.google.firebase:firebase-auth:21.1.0'
+    implementation 'com.google.android.gms:play-services-auth:20.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

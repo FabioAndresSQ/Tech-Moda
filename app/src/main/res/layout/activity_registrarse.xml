@@ -8,7 +8,7 @@
     tools:context=".view.ui.activities.RegistrarseActivity">
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/loginLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -117,7 +117,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/googleLoginBtn"
+                    android:id="@+id/googleRegisterBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
@@ -130,7 +130,7 @@
                     app:srcCompat="@drawable/ic_googlelogo" />
 
                 <ImageButton
-                    android:id="@+id/facebookLoginbtn"
+                    android:id="@+id/facebookRegisterBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
