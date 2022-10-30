@@ -4,7 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.176" />
+        <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/drawable/ic_facebooklogo.xml" value="0.176" />
+        <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/drawable/ic_googlelogo.xml" value="0.176" />
+        <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/layout/activity_home.xml" value="0.16576086956521738" />
+        <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/layout/activity_login_reserva.xml" value="0.16576086956521738" />
         <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/layout/activity_main.xml" value="0.16621376811594202" />
+        <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/layout/activity_registrarse.xml" value="0.16621376811594202" />
       </map>
     </option>
   </component>

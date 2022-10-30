@@ -14,14 +14,28 @@
         android:theme="@style/Theme.TechModa"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".view.ui.activities.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ui.activities.LoginActivityReserva"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.ui.activities.RegistrarseActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:noHistory="true"/>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:noHistory="true"/>
     </application>
 
 </manifest>
