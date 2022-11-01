@@ -15,15 +15,13 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.techmoda.MainActivity
 import com.techmoda.ProviderType
 import com.techmoda.R
 import java.lang.Exception
 
-class LoginActivityReserva : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private val GOOGLE_SIGN_IN = 100
     private lateinit var txtEmailLogin : EditText
     private lateinit var txtPasswordLogin : EditText
@@ -35,7 +33,7 @@ class LoginActivityReserva : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_reserva)
+        setContentView(R.layout.activity_login)
 
         txtEmailLogin = findViewById(R.id.txtEmailLogin)
         txtPasswordLogin = findViewById(R.id.txtPasswordLogin)

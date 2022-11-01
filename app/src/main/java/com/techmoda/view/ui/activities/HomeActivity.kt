@@ -55,7 +55,7 @@ class HomeActivity : AppCompatActivity() {
 
     //Start Login activity
     private fun showLogin(){
-        val loginIntent = Intent(this, LoginActivityReserva::class.java).apply { } //Edit for new
+        val loginIntent = Intent(this, LoginActivity::class.java).apply { } //Edit for new
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(loginIntent)
     }

@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
-import com.techmoda.MainActivity
 import com.techmoda.ProviderType
 import com.techmoda.R
 import java.lang.Exception
@@ -133,7 +132,7 @@ class RegistrarseActivity : AppCompatActivity() {
 
     //Start Login activity
     private fun showLogin(){
-        val loginIntent = Intent(this, LoginActivityReserva::class.java).apply { } //Edit for new
+        val loginIntent = Intent(this, LoginActivity::class.java).apply { } //Edit for new
         startActivity(loginIntent)
     }
 }
