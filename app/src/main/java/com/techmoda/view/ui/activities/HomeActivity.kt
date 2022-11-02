@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
+import com.techmoda.ProviderType
 import com.techmoda.R
 
 class HomeActivity : AppCompatActivity() {
@@ -14,6 +16,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var emailLbl: TextView
     private lateinit var providerLbl: TextView
     private lateinit var logOutBtn: Button
+
+    private var provider : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +27,7 @@ class HomeActivity : AppCompatActivity() {
         logOutBtn = findViewById(R.id.logOutBtn)
 
         val email = intent.extras?.getString("email")
-        val provider = intent.extras?.getString("provider")
+        provider = intent.extras?.getString("provider")
 
         emailLbl.text = "Email: " + email
         providerLbl.text = "register method: " + provider
@@ -48,6 +52,11 @@ class HomeActivity : AppCompatActivity() {
             val prefs = getSharedPreferences(getString(R.string.prefs_file),Context.MODE_PRIVATE).edit()
             prefs.clear()
             prefs.apply()
+
+            if (provider == ProviderType.FACEBOOK.name){
+                LoginManager.getInstance().logOut()
+            }
+
             FirebaseAuth.getInstance().signOut()
             showLogin()
         }

@@ -29,7 +29,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var goToRegistrarBtn : Button
     private lateinit var loginLayout : ScrollView
     private lateinit var googleLoginBtn : ImageButton
-    private lateinit var facebookLoginBtn : ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +40,6 @@ class LoginActivity : AppCompatActivity() {
         goToRegistrarBtn = findViewById(R.id.goToRegistrarBtn)
         loginLayout = findViewById(R.id.loginLayout)
         googleLoginBtn = findViewById(R.id.googleLoginBtn)
-        facebookLoginBtn = findViewById(R.id.facebookLoginBtn)
 
         //Analytics Events
         val analytics = FirebaseAnalytics.getInstance(this)
@@ -181,6 +179,7 @@ class LoginActivity : AppCompatActivity() {
             putExtra("email", email)
             putExtra("provider", provider.name)
         }
+        homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(homeIntent)
     }
 }

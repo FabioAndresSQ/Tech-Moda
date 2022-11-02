@@ -120,8 +120,6 @@
                     android:id="@+id/googleRegisterBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="15dp"
                     android:layout_weight="0"
                     android:background="#0A000000"
                     android:contentDescription="Iniciar sesion con google"
@@ -129,16 +127,6 @@
                     android:padding="8dp"
                     app:srcCompat="@drawable/ic_googlelogo" />
 
-                <ImageButton
-                    android:id="@+id/facebookRegisterBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_weight="0"
-                    android:backgroundTint="#00FFFFFF"
-                    android:contentDescription="Iniciar sesion con facebook"
-                    android:focusable="false"
-                    app:srcCompat="@drawable/ic_facebooklogo" />
             </LinearLayout>
 
             <View

@@ -3,4 +3,20 @@
     <string name="prefs_file">com.techmoda.PREFERENCE_FILE_KEY</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_navigation_test">NavigationTestActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="facebook_app_id">1802523246776101</string>
+    <string name="fb_login_protocol_scheme">fb1802523246776101</string>
+    <string name="facebook_client_token">2075f0fe6d5bd245bc9f23b72e3e228e</string>
+
 </resources>

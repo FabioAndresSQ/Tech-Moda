@@ -5,21 +5,32 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.techmoda.ProviderType
 import com.techmoda.R
 import java.lang.Exception
 
 class RegistrarseActivity : AppCompatActivity() {
 
+    private val GOOGLE_SIGN_IN = 100
     private lateinit var txtEmail : EditText
     private lateinit var txtPassword : EditText
     private lateinit var txtConfirmPassword : EditText
     private lateinit var registrarBtn : Button
     private lateinit var goToLoginBtn : Button
+    private lateinit var googleLoginBtn : ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +42,7 @@ class RegistrarseActivity : AppCompatActivity() {
         txtConfirmPassword = findViewById(R.id.txtConfirmPassword)
         registrarBtn = findViewById(R.id.registrarseBtn)
         goToLoginBtn = findViewById(R.id.goToLoginBtn)
+        googleLoginBtn = findViewById(R.id.googleLoginBtn)
 
         //Analytics Events
         val analytics = FirebaseAnalytics.getInstance(this)
@@ -73,6 +85,42 @@ class RegistrarseActivity : AppCompatActivity() {
             showLogin()
         }
 
+        googleLoginBtn.setOnClickListener {
+            val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail().build()
+
+            val googleClient : GoogleSignInClient = GoogleSignIn.getClient(this, googleConf)
+            googleClient.signOut()
+            startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == GOOGLE_SIGN_IN){
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                if (account != null) {
+                    val credential: AuthCredential =
+                        GoogleAuthProvider.getCredential(account.idToken, null)
+                    FirebaseAuth.getInstance().signInWithCredential(credential)
+                        .addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                Toast.makeText(this, "Successful", Toast.LENGTH_SHORT).show()
+                                showHomePage(it.result?.user?.email ?: "", ProviderType.GOOGLE)
+                            } else {
+                                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                                showErrorAlert("Error al autenticar con Google")
+                            }
+                        }
+                }
+            } catch (e : ApiException){
+                showErrorAlert("Error al autenticar con Google")
+            }
+        }
     }
 
     //Validate email input is correct
@@ -127,6 +175,7 @@ class RegistrarseActivity : AppCompatActivity() {
             putExtra("email", email)
             putExtra("provider", provider.name)
         }
+        homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(homeIntent)
     }
 

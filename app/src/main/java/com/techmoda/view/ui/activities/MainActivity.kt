@@ -9,7 +9,8 @@ import com.techmoda.view.ui.activities.LoginActivity
 
 enum class ProviderType{
     BASIC,
-    GOOGLE
+    GOOGLE,
+    FACEBOOK
 }
 
 private lateinit var handler: Handler
