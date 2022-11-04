@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "530787949577",
+    "project_id": "tech-moda-13655",
+    "storage_bucket": "tech-moda-13655.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530787949577:android:f6ef1e623c13468d71ecd8",
+        "android_client_info": {
+          "package_name": "com.techmoda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "530787949577-p04bsqitib7k4mvmhap9iakn49ho7hdr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiN26FuC6k0ULT59RVEH7ETJiAwWwuW8Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "530787949577-p04bsqitib7k4mvmhap9iakn49ho7hdr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
