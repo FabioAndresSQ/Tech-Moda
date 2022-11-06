@@ -42,7 +42,7 @@ class RegistrarseActivity : AppCompatActivity() {
         txtConfirmPassword = findViewById(R.id.txtConfirmPassword)
         registrarBtn = findViewById(R.id.registrarseBtn)
         goToLoginBtn = findViewById(R.id.goToLoginBtn)
-        googleLoginBtn = findViewById(R.id.googleLoginBtn)
+        googleLoginBtn = findViewById(R.id.googleRegisterBtn)
 
         //Analytics Events
         val analytics = FirebaseAnalytics.getInstance(this)
