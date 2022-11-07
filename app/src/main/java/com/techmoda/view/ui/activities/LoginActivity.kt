@@ -62,10 +62,11 @@ class LoginActivity : AppCompatActivity() {
         val prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
         val savedEmail = prefs.getString("email", null)
         val savedProvider = prefs.getString("provider", null)
+        val savedImage = prefs.getString("image", null)
 
         if (savedEmail != null && savedProvider != null){
             loginLayout.visibility = View.INVISIBLE
-            showHomePage(savedEmail, ProviderType.valueOf(savedProvider))
+            showHomePage(savedEmail, ProviderType.valueOf(savedProvider), savedImage)
         }
 
     }
@@ -79,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
                         txtPasswordLogin.text.toString()).addOnCompleteListener {
                         if (it.isSuccessful){
                             Toast.makeText(this, "Successful", Toast.LENGTH_SHORT).show()
-                            showHomePage(it.result?.user?.email ?: "", ProviderType.BASIC)
+                            showHomePage(it.result?.user?.email ?: "", ProviderType.BASIC, "default")
                         }else{
                             Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
                             showErrorAlert("Error al autenticar al Usuario")
@@ -120,7 +121,8 @@ class LoginActivity : AppCompatActivity() {
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
                                 Toast.makeText(this, "Successful", Toast.LENGTH_SHORT).show()
-                                showHomePage(it.result?.user?.email ?: "", ProviderType.GOOGLE)
+                                val imageUrl = it.result?.user?.photoUrl.toString()
+                                showHomePage(it.result?.user?.email ?: "", ProviderType.GOOGLE, imageUrl)
                             } else {
                                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
                                 showErrorAlert("Error al autenticar con Google")
@@ -173,11 +175,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     //Start HomePageActivity
-    private fun showHomePage(email:String, provider: ProviderType){
+    private fun showHomePage(email:String, provider: ProviderType, imageUrl:String?){
         //Launch HomePage Activity
         val homeIntent = Intent(this, HomeActivity::class.java).apply {
             putExtra("email", email)
             putExtra("provider", provider.name)
+            putExtra("image", imageUrl)
         }
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(homeIntent)

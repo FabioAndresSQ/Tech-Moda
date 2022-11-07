@@ -3,34 +3,73 @@ package com.techmoda.view.ui.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
 import com.facebook.login.LoginManager
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.techmoda.ProviderType
 import com.techmoda.R
+import de.hdodenhof.circleimageview.CircleImageView
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var emailLbl: TextView
-    private lateinit var providerLbl: TextView
-    private lateinit var logOutBtn: Button
+    private lateinit var imageProfile: CircleImageView
+    lateinit var toggle : ActionBarDrawerToggle
+
 
     private var provider : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        emailLbl = findViewById(R.id.emailLbl)
-        providerLbl = findViewById(R.id.providerLbl)
-        logOutBtn = findViewById(R.id.logOutBtn)
+
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
+        val navView = findViewById<NavigationView>(R.id.nav_view)
+
+        toggle = ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        navView.setNavigationItemSelectedListener {
+            when (it.itemId){
+                R.id.verCarrito -> Toast.makeText(this,"Carrito",Toast.LENGTH_SHORT).show()
+                R.id.comentarios -> Toast.makeText(this,"Comentarios",Toast.LENGTH_SHORT).show()
+                R.id.contacto -> Toast.makeText(this,"Contacto",Toast.LENGTH_SHORT).show()
+                R.id.cerrarSesion -> {
+                    val prefs = getSharedPreferences(getString(R.string.prefs_file),Context.MODE_PRIVATE).edit()
+                    prefs.clear()
+                    prefs.apply()
+
+                    FirebaseAuth.getInstance().signOut()
+                    showLogin()
+                }
+            }
+
+            true
+        }
+
 
         val email = intent.extras?.getString("email")
+        val imageUrl = intent.extras?.getString("image")
         provider = intent.extras?.getString("provider")
 
-        emailLbl.text = "Email: " + email
-        providerLbl.text = "register method: " + provider
+        val headerView = navView.getHeaderView(0)
+        emailLbl = headerView.findViewById(R.id.emailLbl)
+        imageProfile = headerView.findViewById(R.id.profileImage)
+        emailLbl.text = email
+        if (provider == ProviderType.GOOGLE.name){
+            Glide.with(this).load(imageUrl).into(imageProfile)
+        }
 
         setup()
 
@@ -38,28 +77,20 @@ class HomeActivity : AppCompatActivity() {
         val prefs = getSharedPreferences(getString(R.string.prefs_file),Context.MODE_PRIVATE).edit()
         prefs.putString("email", email)
         prefs.putString("provider", provider)
+        prefs.putString("image", imageUrl)
         prefs.apply()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setup(){
         //Log out
-        logOutBtn.setOnClickListener {
-            val prefs = getSharedPreferences(getString(R.string.prefs_file),Context.MODE_PRIVATE).edit()
-            prefs.clear()
-            prefs.apply()
 
-            if (provider == ProviderType.FACEBOOK.name){
-                LoginManager.getInstance().logOut()
-            }
-
-            FirebaseAuth.getInstance().signOut()
-            showLogin()
-        }
     }
 
     //Start Login activity

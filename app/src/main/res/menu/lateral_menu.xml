@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="Ver Carrito"
+        android:id="@+id/verCarrito"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"/>
+    <item android:title="Comentarios"
+        android:id="@+id/comentarios"
+        android:icon="@drawable/ic_baseline_comment_24"/>
+    <item android:title="Contacto"
+        android:id="@+id/contacto"
+        android:icon="@drawable/ic_baseline_contact_phone_24"/>
+    <item android:title="Cerrar sesion"
+        android:id="@+id/cerrarSesion"
+        android:icon="@drawable/ic_baseline_login_24"/>
+</menu>
