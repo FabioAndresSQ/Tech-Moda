@@ -1,14 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.fragments.BarCodeFragment">
+    tools:context=".view.ui.fragments.BarCodeFragment"
+    android:background="#FFFFFFFF">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageButton
+        android:id="@+id/imageButton9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_camera" />
+
+    <ScrollView
+        android:id="@+id/View"
+        android:layout_width="411dp"
+        android:layout_height="41dp"
+        android:background="#FF000000"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <LinearLayout
+            android:id="@+id/Barra_Home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/textView5"
+        android:layout_width="119dp"
+        android:layout_height="39dp"
+        android:text="TECH MODA"
+        android:textAlignment="center"
+        android:textColor="#FFFFFFFF"
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="10dp" />
 
-</FrameLayout>
+    <ImageButton
+        android:id="@+id/imagen"
+        android:layout_width="41dp"
+        android:layout_height="40dp"
+        android:background="#FF000000"
+        android:src="@drawable/ic_action_name"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <ScrollView
+        android:id="@+id/barra"
+        android:layout_width="411dp"
+        android:layout_height="51dp"
+        android:background="#FF000000"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="680dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageButton
+        android:id="@+id/imageButton6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_baseline_shopping_cart_24"
+        tools:layout_editor_absoluteX="122dp"
+        tools:layout_editor_absoluteY="680dp"
+        android:background="#FF000000"/>
+
+    <ImageButton
+        android:id="@+id/imageButton5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_baseline_home_24"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="680dp"
+        android:background="#FF000000"/>
+
+    <ImageButton
+        android:id="@+id/imageButton7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_baseline_contact_phone_24"
+        tools:layout_editor_absoluteX="228dp"
+        tools:layout_editor_absoluteY="680dp"
+        android:background="#FF000000"/>
+
+    <ImageButton
+        android:id="@+id/imageButton8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_scanner_barcode"
+        tools:layout_editor_absoluteX="330dp"
+        tools:layout_editor_absoluteY="680dp"
+        android:background="#FF000000"/>
+
+    <ImageButton
+        android:id="@+id/imageButton10"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@android:drawable/ic_menu_camera"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="500dp"
+        android:background="#FF000000"/>
+
+    <ImageButton
+        android:id="@+id/imageButton12"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        tools:layout_editor_absoluteX="240dp"
+        tools:layout_editor_absoluteY="500dp"
+        android:background="#FF000000" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="127dp"
+        android:layout_height="35dp"
+        android:text="Escanear codigo..."
+        android:textColor="#FF000000"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="59dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
