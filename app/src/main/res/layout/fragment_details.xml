@@ -7,37 +7,186 @@
     tools:context=".view.ui.fragments.DetailsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/detailedTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/hello_blank_fragment"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/detailedDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_blank_fragment"
-            app:layout_constraintBottom_toTopOf="@+id/detailedPrice"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailedTitle" />
+            <TextView
+                android:id="@+id/detailedTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Loading..."
+                android:textColor="@color/black"
+                android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/detailedPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_blank_fragment"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/customborder"
+                android:contentDescription="Imagenes del producto">
+
+                <LinearLayout
+                    android:id="@+id/containerImages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/firstImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/loading_icon"
+                        android:elevation="10dp"
+                        android:fadingEdgeLength="5dp"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/detailedDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Loading...."
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/detailedPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="$....COP"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/customborder"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Elige tu Talla"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:id="@+id/tallaXsBtn"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/customborder"
+                            android:text="XS"
+                            android:textColor="@color/black" />
+
+                        <Button
+                            android:id="@+id/tallaSBtn"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/customborder"
+                            android:text="S"
+                            android:textColor="@color/black" />
+
+                        <Button
+                            android:id="@+id/tallaMBtn"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/customborder"
+                            android:text="M"
+                            android:textColor="@color/black" />
+
+                        <Button
+                            android:id="@+id/tallaLBtn"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/customborder"
+                            android:text="L"
+                            android:textColor="@color/black" />
+
+                        <Button
+                            android:id="@+id/tallaXlBtn"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/customborder"
+                            android:text="XL"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <Button
+                    android:id="@+id/button7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Añadir al Carrito" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Tags:"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/detailedTags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="Loading..."
+                android:textAlignment="center" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

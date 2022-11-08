@@ -34,8 +34,9 @@ class ProductoAdapter (
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val producto : Producto = itemsProductos[position]
+        val imagesList = producto.imagenes.toString().split(",")
         Firebase.storage("gs://tech-moda-13655.appspot.com/")
-            .getReferenceFromUrl(producto.imagenes.toString())
+            .getReferenceFromUrl(imagesList[0])
             .downloadUrl.addOnSuccessListener {Uri->
                 val imageUrl = Uri.toString()
                 Glide.with(context).load(imageUrl).into(holder.image)
@@ -43,7 +44,7 @@ class ProductoAdapter (
 
         holder.title.text = producto.titulo
         val formattedPrice = getFormatedPrice(producto.precio.toString())
-        holder.price.text = "$ $formattedPrice COP"
+        holder.price.text = formattedPrice
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener{
@@ -76,7 +77,7 @@ class ProductoAdapter (
                 pos--
             }
         }
-        return orden
+        return "$ $orden COP"
     }
 
     interface OnItemClickListener{

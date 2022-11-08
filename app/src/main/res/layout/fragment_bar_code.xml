@@ -1,14 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ui.fragments.BarCodeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="#FFFFFFFF"
+        tools:context=".view.ui.fragments.BarCodeFragment">
+
+        <ImageButton
+            android:id="@+id/imageButton9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_camera"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imageButton10"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="#FF000000"
+            android:src="@android:drawable/ic_menu_camera"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton12"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <ImageButton
+            android:id="@+id/imageButton12"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="#FF000000"
+            android:src="@android:drawable/ic_menu_gallery"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButton10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageButton10"
+            app:layout_constraintTop_toTopOf="@+id/imageButton10" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="127dp"
+            android:layout_height="35dp"
+            android:text="Escanear codigo..."
+            android:textColor="#FF000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
