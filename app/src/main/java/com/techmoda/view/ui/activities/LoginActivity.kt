@@ -17,6 +17,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import com.techmoda.ProviderType
 import com.techmoda.R
 import java.lang.Exception
@@ -29,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var goToRegistrarBtn : Button
     private lateinit var loginLayout : ScrollView
     private lateinit var googleLoginBtn : ImageButton
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +82,10 @@ class LoginActivity : AppCompatActivity() {
                         txtPasswordLogin.text.toString()).addOnCompleteListener {
                         if (it.isSuccessful){
                             Toast.makeText(this, "Successful", Toast.LENGTH_SHORT).show()
+                            db.collection("users").document(it.result?.user?.email ?: "").set(
+                                hashMapOf("provider" to ProviderType.BASIC.name,
+                                    "nombre" to "")
+                            )
                             showHomePage(it.result?.user?.email ?: "", ProviderType.BASIC, "default")
                         }else{
                             Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
@@ -122,6 +128,10 @@ class LoginActivity : AppCompatActivity() {
                             if (it.isSuccessful) {
                                 Toast.makeText(this, "Successful", Toast.LENGTH_SHORT).show()
                                 val imageUrl = it.result?.user?.photoUrl.toString()
+                                db.collection("users").document(it.result?.user?.email ?: "").set(
+                                    hashMapOf("provider" to ProviderType.GOOGLE.name,
+                                    "nombre" to it.result.user?.displayName.toString())
+                                )
                                 showHomePage(it.result?.user?.email ?: "", ProviderType.GOOGLE, imageUrl)
                             } else {
                                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
@@ -184,5 +194,9 @@ class LoginActivity : AppCompatActivity() {
         }
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(homeIntent)
+    }
+
+    private fun saveDataFireStore(){
+
     }
 }

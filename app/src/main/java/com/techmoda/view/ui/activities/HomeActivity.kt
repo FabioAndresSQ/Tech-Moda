@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.facebook.login.LoginManager
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.techmoda.ProviderType
 import com.techmoda.R
 import de.hdodenhof.circleimageview.CircleImageView
@@ -29,8 +30,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var contactBtn: ImageButton
     private lateinit var barcodeBtn: ImageButton
     lateinit var toggle : ActionBarDrawerToggle
-
-
+    private var email: String? = null
     private var provider : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +65,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
-        val email = intent.extras?.getString("email")
+        email = intent.extras?.getString("email")
         val imageUrl = intent.extras?.getString("image")
         provider = intent.extras?.getString("provider")
 
@@ -95,35 +95,35 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setup(){
-
+        //Navigation Setup
         val navController = findNavController()
-
         homeBtn = findViewById(R.id.homeBtn)
         cartBtn = findViewById(R.id.cartBtn)
         contactBtn = findViewById(R.id.contactBtn)
         barcodeBtn = findViewById(R.id.barcodeBtn)
-
         homeBtn.setOnClickListener {
             /*Todo: Add a check for home to don't show home again*/
             navController?.navigateUp()
             navController?.navigate(R.id.homeFragment)
 
         }
-
         cartBtn.setOnClickListener {
             navController?.navigateUp()
             navController?.navigate(R.id.carritoFragment)
         }
-
         contactBtn.setOnClickListener {
             navController?.navigateUp()
             navController?.navigate(R.id.contactoFragment)
         }
-
         barcodeBtn.setOnClickListener {
             navController?.navigateUp()
             navController?.navigate(R.id.barCodeFragment)
         }
+
+        //Profile click handler
+
+        imageProfile.setOnClickListener { showProfile() }
+        emailLbl.setOnClickListener { showProfile() }
 
     }
 
@@ -137,6 +137,14 @@ class HomeActivity : AppCompatActivity() {
         val loginIntent = Intent(this, LoginActivity::class.java).apply { } //Edit for new
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(loginIntent)
+    }
+
+    //Start Profile activity
+    private fun showProfile(){
+        val profileIntent = Intent(this, ProfileActivity::class.java).apply {
+            putExtra("email", email)
+        }
+        startActivity(profileIntent)
     }
 
 }
