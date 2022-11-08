@@ -19,4 +19,8 @@
     <string name="fb_login_protocol_scheme">fb1802523246776101</string>
     <string name="facebook_client_token">2075f0fe6d5bd245bc9f23b72e3e228e</string>
 
+
+    <string name="descripcontac">Gracias por elegir TechModa \n\nSi tienes alguna pregunta como, ¿cuanto tarda el envio del producto? o si tienes problemas con la plataforma puedes escribirnos a nuestro correo info@techmoda.com y llamarnos al numero 3145971624\n\nValoramos mucho tu opinion acerca de nuestros servicios porque nos ayuda a brindarte una mejor experiencia, si gustas puedes dejarnos una sugerencia en la sección de Comentarios\n\n\nEncuentranos:\n\n\n\n\n\n\nNuestras redes:</string>
+    <string name="contactos">Contactos</string>
+
 </resources>
