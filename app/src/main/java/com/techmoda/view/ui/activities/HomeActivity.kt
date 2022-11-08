@@ -3,13 +3,15 @@ package com.techmoda.view.ui.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.facebook.login.LoginManager
 import com.google.android.material.navigation.NavigationView
@@ -22,6 +24,10 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var emailLbl: TextView
     private lateinit var imageProfile: CircleImageView
+    private lateinit var homeBtn: ImageButton
+    private lateinit var cartBtn: ImageButton
+    private lateinit var contactBtn: ImageButton
+    private lateinit var barcodeBtn: ImageButton
     lateinit var toggle : ActionBarDrawerToggle
 
 
@@ -89,8 +95,41 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setup(){
-        //Log out
 
+        val navController = findNavController()
+
+        homeBtn = findViewById(R.id.homeBtn)
+        cartBtn = findViewById(R.id.cartBtn)
+        contactBtn = findViewById(R.id.contactBtn)
+        barcodeBtn = findViewById(R.id.barcodeBtn)
+
+        homeBtn.setOnClickListener {
+            /*Todo: Add a check for home to don't show home again*/
+            navController?.navigateUp()
+            navController?.navigate(R.id.homeFragment)
+
+        }
+
+        cartBtn.setOnClickListener {
+            navController?.navigateUp()
+            navController?.navigate(R.id.carritoFragment)
+        }
+
+        contactBtn.setOnClickListener {
+            navController?.navigateUp()
+            navController?.navigate(R.id.contactoFragment)
+        }
+
+        barcodeBtn.setOnClickListener {
+            navController?.navigateUp()
+            navController?.navigate(R.id.barCodeFragment)
+        }
+
+    }
+
+    private fun findNavController(): NavController? {
+        val navHostFragment = (this).supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as? NavHostFragment
+        return navHostFragment?.navController
     }
 
     //Start Login activity
