@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.techmoda.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,7 +37,14 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        var view= inflater.inflate(R.layout.fragment_home, container, false)
+        var recyclerView = view.findViewById<RecyclerView>(R.id.listaProductos)
+        var productos=ArrayList<producto>()
+        productos.add(producto( nombre: "Camisa Hombre ", precio: "75000", descripcion: "Esta es la descripcion", imagen: "default.jpg"))
+        var adapter= ProductoAdapter(productos)
+        recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL,false)
+        recyclerView.adapter = adapter
+        return view
     }
 
     companion object {
