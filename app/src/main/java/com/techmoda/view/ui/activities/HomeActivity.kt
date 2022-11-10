@@ -45,12 +45,25 @@ class HomeActivity : AppCompatActivity() {
         toggle.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val navController = findNavController()
 
         navView.setNavigationItemSelectedListener {
             when (it.itemId){
-                R.id.verCarrito -> Toast.makeText(this,"Carrito",Toast.LENGTH_SHORT).show()
-                R.id.comentarios -> Toast.makeText(this,"Comentarios",Toast.LENGTH_SHORT).show()
-                R.id.contacto -> Toast.makeText(this,"Contacto",Toast.LENGTH_SHORT).show()
+                R.id.verCarrito -> {
+                    navController?.navigateUp()
+                    navController?.navigate(R.id.carritoFragment)
+                    drawerLayout.close()
+                }
+                R.id.comentarios -> {
+                    navController?.navigateUp()
+                    navController?.navigate(R.id.comentariosFragment)
+                    drawerLayout.close()
+                }
+                R.id.contacto -> {
+                    navController?.navigateUp()
+                    navController?.navigate(R.id.contactoFragment)
+                    drawerLayout.close()
+                }
                 R.id.cerrarSesion -> {
                     val prefs = getSharedPreferences(getString(R.string.prefs_file),Context.MODE_PRIVATE).edit()
                     prefs.clear()

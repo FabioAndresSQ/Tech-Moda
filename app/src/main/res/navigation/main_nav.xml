@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_homeFragment_to_barCodeFragment"
             app:destination="@id/barCodeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_comentariosFragment"
+            app:destination="@id/comentariosFragment" />
     </fragment>
     <fragment
         android:id="@+id/barCodeFragment"
@@ -57,6 +60,15 @@
         tools:layout="@layout/fragment_contacto" >
         <action
             android:id="@+id/action_contactoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/comentariosFragment"
+        android:name="com.techmoda.view.ui.fragments.ComentariosFragment"
+        android:label="fragment_comentarios"
+        tools:layout="@layout/fragment_comentarios" >
+        <action
+            android:id="@+id/action_comentariosFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

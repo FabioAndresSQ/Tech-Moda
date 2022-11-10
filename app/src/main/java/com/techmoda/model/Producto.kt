@@ -9,5 +9,6 @@ data class Producto (
     var precio : Int ?= null,
     var imagenes : String ?= null,
     var categoria : String ?= null,
-    var tags : String ?= null
+    var tags : String ?= null,
+    var tallas : String ?= null
 ): Serializable
