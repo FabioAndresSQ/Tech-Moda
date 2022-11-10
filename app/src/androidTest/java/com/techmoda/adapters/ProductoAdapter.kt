@@ -1,5 +1,6 @@
 package com.techmoda.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,9 @@ class ProductoAdapter(val productos:ArrayList<Producto>) : RecyclerView.Adapter<
     }
     class ViewHolder (itemView:View) : RecyclerView.ViewHolder(itemView){
         init {
+            itemView.setOnClickListener(
+                itemView.context.startActivity(Intent(itemView.context. VerProducto:: class java))
+            )
 
         }
         fun binItems(producto: Producto){
