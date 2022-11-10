@@ -19,7 +19,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeFragment : Fragment() {
+class HomeFragment<producto> : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -37,10 +37,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view= inflater.inflate(R.layout.fragment_home, container, false)
+        var view= inflater.inflate(R.layout.fragment_carrito, container, false)
         var recyclerView = view.findViewById<RecyclerView>(R.id.listaProductos)
-        var productos=ArrayList<producto>()
-        productos.add(producto( nombre: "Camisa Hombre ", precio: "75000", descripcion: "Esta es la descripcion", imagen: "default.jpg"))
+        var productos=ArrayList<Producto>
+        productos.add(Producto( nombre: "Camisa Hombre ", precio: "75000", descripcion: "Esta es la descripcion", imagen: "default.jpg"))
         var adapter= ProductoAdapter(productos)
         recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL,false)
         recyclerView.adapter = adapter
@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
+            HomeFragment<Any>().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

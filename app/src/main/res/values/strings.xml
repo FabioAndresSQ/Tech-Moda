@@ -18,5 +18,6 @@
     <string name="facebook_app_id">1802523246776101</string>
     <string name="fb_login_protocol_scheme">fb1802523246776101</string>
     <string name="facebook_client_token">2075f0fe6d5bd245bc9f23b72e3e228e</string>
+    <string name="cart">Comprar</string>
 
 </resources>
