@@ -19,7 +19,7 @@
         android:theme="@style/Theme.TechModa"
         tools:targetApi="31">
         <activity
-            android:name=".CrearDireccionActivity"
+            android:name=".view.ui.activities.CrearDireccionActivity"
             android:exported="false" />
         <activity
             android:name=".view.ui.activities.ProfileActivity"
