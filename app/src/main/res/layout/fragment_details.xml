@@ -156,13 +156,55 @@
                     </LinearLayout>
                 </HorizontalScrollView>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cantidad"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="50dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/itemLessBtn"
+                        android:layout_width="5dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="-"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/itemCantidadLbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="1"
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/itemPlusBtn"
+                        android:layout_width="5dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="+" />
+                </LinearLayout>
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/addToCartBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:text="Añadir al Carrito" />
+
             </LinearLayout>
+
 
             <TextView
                 android:id="@+id/textView6"

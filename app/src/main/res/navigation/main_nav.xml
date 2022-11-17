@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_homeFragment_to_comentariosFragment"
             app:destination="@id/comentariosFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_pedidosFragment"
+            app:destination="@id/pedidosFragment" />
     </fragment>
     <fragment
         android:id="@+id/barCodeFragment"
@@ -52,6 +55,9 @@
         <action
             android:id="@+id/action_carritoFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_carritoFragment_to_facturaFragment"
+            app:destination="@id/facturaFragment" />
     </fragment>
     <fragment
         android:id="@+id/contactoFragment"
@@ -71,4 +77,18 @@
             android:id="@+id/action_comentariosFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/facturaFragment"
+        android:name="com.techmoda.view.ui.fragments.FacturaFragment"
+        android:label="fragment_factura"
+        tools:layout="@layout/fragment_factura" >
+        <action
+            android:id="@+id/action_facturaFragment_to_carritoFragment"
+            app:destination="@id/carritoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pedidosFragment"
+        android:name="com.techmoda.view.ui.fragments.PedidosFragment"
+        android:label="fragment_pedidos"
+        tools:layout="@layout/fragment_pedidos" />
 </navigation>

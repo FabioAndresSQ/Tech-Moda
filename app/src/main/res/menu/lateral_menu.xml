@@ -12,6 +12,9 @@
     <item android:title="Contacto"
         android:id="@+id/contacto"
         android:icon="@drawable/ic_baseline_contact_phone_24"/>
+    <item android:title="Mis Pedidos"
+        android:id="@+id/pedidos"
+        android:icon="@drawable/ic_baseline_point_of_sale_24"/>
     <item android:title="Cerrar sesion"
         android:id="@+id/cerrarSesion"
         android:icon="@drawable/ic_baseline_login_24"/>

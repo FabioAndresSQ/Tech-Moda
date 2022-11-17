@@ -1,7 +1,6 @@
 package com.techmoda.view.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +9,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.techmoda.R
 import com.techmoda.model.Producto
-import java.io.File
 
 class ProductoAdapter (
-    private val context: Context, val itemsProductos :ArrayList<Producto>,
+    private val context: Context, val itemsProductos :MutableList<Producto>,
     private val listener : OnItemClickListener):
     RecyclerView.Adapter<ProductoAdapter.ViewHolder>(){
 

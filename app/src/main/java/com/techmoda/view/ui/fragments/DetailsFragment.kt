@@ -1,21 +1,24 @@
 package com.techmoda.view.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.get
 import androidx.core.view.iterator
 import com.bumptech.glide.Glide
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.techmoda.ProviderType
 import com.techmoda.R
 import com.techmoda.model.Producto
+import java.io.Serializable
 
 class DetailsFragment : Fragment() {
 
@@ -25,6 +28,12 @@ class DetailsFragment : Fragment() {
     private lateinit var detailedTags: TextView
     private lateinit var containerImages: LinearLayout
     private lateinit var producto: Producto
+    private lateinit var addToCartBtn: Button
+    private lateinit var itemLessBtn : Button
+    private lateinit var itemPlusBtn : Button
+    private lateinit var itemCantidadLbl : TextView
+    private var cantidad = 1
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +52,11 @@ class DetailsFragment : Fragment() {
         detailedDescription = view.findViewById(R.id.detailedDescription)
         detailedPrice = view.findViewById(R.id.detailedPrice)
         detailedTags = view.findViewById(R.id.detailedTags)
-        containerImages = view.findViewById(R.id.containerImages)
+        addToCartBtn = view.findViewById(R.id.addToCartBtn)
+        itemLessBtn = view.findViewById(R.id.itemLessBtn)
+        itemPlusBtn = view.findViewById(R.id.itemPlusBtn)
+        itemCantidadLbl = view.findViewById(R.id.itemCantidadLbl)
+        containerImages = view.findViewById(R.id.containerImages) //LinearLayout containing Images
 
         setup()
 
@@ -51,22 +64,25 @@ class DetailsFragment : Fragment() {
     }
 
     private fun setup(){
+        itemLessBtn.visibility = View.INVISIBLE
         detailedTitle.text = producto.titulo.toString()
         detailedDescription.text = producto.descripcion.toString()
         detailedPrice.text = getFormatedPrice(producto.precio.toString())
         val imagesUrlList = producto.imagenes.toString().filter {!it.isWhitespace()}.split(",")
         val imageContainers : ArrayList<View> = ArrayList()
-        // Inflate the imageview, giving the linearlayout as the parent)
+        //Get the number of images Links on Product and add a imageview for each link
         for (i in imagesUrlList){
+            // Inflate the imageview, giving the linearlayout as the parent
             val imageView = getLayoutInflater().inflate(R.layout.image_template, containerImages, false)
             imageContainers.add(imageView)
-            Log.e("IMAGE", "IMAGE URL -> $i")
         }
+        //Delete the default ImageView on linearLayout
         containerImages.removeAllViews()
+        //Add the imageviews to the linearLayout if Images
         for (i in imageContainers){
             containerImages.addView(i)
         }
-
+        //Get the number of ImageViews in the LinearLayout and display the corresponding image with Glide
         val imagesCount = containerImages.childCount
         for (i in 0..imagesCount){
             val imageContainer = containerImages.getChildAt(i)
@@ -80,6 +96,50 @@ class DetailsFragment : Fragment() {
                 }
         }
         detailedTags.text = producto.tags
+
+        itemPlusBtn.setOnClickListener {
+                itemLessBtn.visibility = View.VISIBLE
+            if (cantidad < producto.disponible!!){
+                cantidad++
+                itemCantidadLbl.text = cantidad.toString()
+            } else{
+                itemPlusBtn.visibility = View.INVISIBLE
+            }
+        }
+
+        itemLessBtn.setOnClickListener {
+            if (cantidad > 2) {
+                itemPlusBtn.visibility = View.VISIBLE
+                cantidad--
+            } else if (cantidad == 2){
+                cantidad--
+                itemLessBtn.visibility = View.INVISIBLE
+                itemPlusBtn.visibility = View.VISIBLE
+            }
+            itemCantidadLbl.text = cantidad.toString()
+        }
+
+        addToCartBtn.setOnClickListener {
+            val prefs = context?.getSharedPreferences(getString(R.string.cart_file), Context.MODE_PRIVATE)?.edit()
+            prefs?.putString("${producto.id}", "${producto.id},$cantidad")
+            Log.d("added", "${producto.id},$cantidad")
+            prefs?.apply()
+            val acc = context?.getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
+            val email = acc?.getString("email", null)!!
+            Log.d("added", "${producto.id},$cantidad")
+            prefs?.apply()
+
+            //Save product to Carrito Db
+            db.collection("carrito").document(email).collection("cart")
+                .document(producto.id.toString()).set(
+                hashMapOf("cantidad" to cantidad,
+                    "producto" to db.document("productos/${producto.id.toString()}"))
+            )
+            Toast.makeText(context,"Añadido al Carrito", Toast.LENGTH_SHORT).show()
+
+        }
+
+
     }
 
     private fun getFormatedPrice(price : String): String{
@@ -95,10 +155,6 @@ class DetailsFragment : Fragment() {
             }
         }
         return "$ $orden COP"
-    }
-
-    private fun setImage(imageUrl:String, index: Int){
-
     }
 
 }

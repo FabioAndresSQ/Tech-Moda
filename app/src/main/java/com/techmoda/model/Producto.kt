@@ -3,6 +3,7 @@ package com.techmoda.model
 import java.io.Serializable
 
 data class Producto (
+    var id: String ?= null,
     var disponible : Int ?= null,
     var titulo : String ?= null,
     var descripcion : String ?= null,

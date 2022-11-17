@@ -196,7 +196,4 @@ class LoginActivity : AppCompatActivity() {
         startActivity(homeIntent)
     }
 
-    private fun saveDataFireStore(){
-
-    }
 }
