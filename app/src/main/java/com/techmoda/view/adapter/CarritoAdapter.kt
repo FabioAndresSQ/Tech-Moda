@@ -36,6 +36,7 @@ class CarritoAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val producto : Producto = productosCarrito[position]["producto"] as Producto
         val cantidad : Long = productosCarrito[position]["cantidad"] as Long
+        val talla : String = productosCarrito[position]["talla"] as String
         val imagesList = producto.imagenes.toString().split(",")
         val imagen = imagesList[0]
         Firebase.storage("gs://tech-moda-13655.appspot.com/")
@@ -45,7 +46,7 @@ class CarritoAdapter(
                 Glide.with(context).load(imageUrl).into(holder.image)
             }
 
-        holder.title.text = producto.titulo
+        holder.title.text = "${producto.titulo}, Talla: ${talla}"
         val formattedPrice = getFormatedPrice(producto.precio.toString(), cantidad)
         holder.price.text = formattedPrice
         holder.cantidad.text = cantidad.toString()

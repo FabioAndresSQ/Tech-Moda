@@ -82,10 +82,6 @@ class LoginActivity : AppCompatActivity() {
                         txtPasswordLogin.text.toString()).addOnCompleteListener {
                         if (it.isSuccessful){
                             Toast.makeText(this, "Successful", Toast.LENGTH_SHORT).show()
-                            db.collection("users").document(it.result?.user?.email ?: "").set(
-                                hashMapOf("provider" to ProviderType.BASIC.name,
-                                    "nombre" to "")
-                            )
                             showHomePage(it.result?.user?.email ?: "", ProviderType.BASIC, "default")
                         }else{
                             Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()

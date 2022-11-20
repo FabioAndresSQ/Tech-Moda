@@ -1,7 +1,6 @@
 package com.techmoda.view.ui.fragments
 
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,26 +11,22 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isEmpty
-import androidx.core.view.isNotEmpty
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.*
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.techmoda.ProviderType
 import com.techmoda.R
 import com.techmoda.model.Producto
 import com.techmoda.view.adapter.CarritoAdapter
-import com.techmoda.view.adapter.ProductoAdapter
-import com.techmoda.view.ui.activities.HomeActivity
 import com.techmoda.viewmodel.CarritoViewModel
-import com.techmoda.viewmodel.ProductoViewModel
-import kotlinx.coroutines.*
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import java.io.Serializable
 
 class CarritoFragment : Fragment(), CarritoAdapter.OnItemClickListener{
@@ -70,7 +65,6 @@ class CarritoFragment : Fragment(), CarritoAdapter.OnItemClickListener{
 
         pagoCarritoBtn.setOnClickListener {
             val navController = findNavController()
-            navController?.navigateUp()
             navController?.navigate(R.id.facturaFragment)
         }
         return view

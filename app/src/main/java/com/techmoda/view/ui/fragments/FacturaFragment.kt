@@ -78,7 +78,8 @@ class FacturaFragment : Fragment() {
                                 }
                                 val producto = value?.toObject(Producto::class.java)
                                 val cantidad = dc.document.get("cantidad") as Long
-                                compra.add(hashMapOf("producto" to producto!!, "cantidad" to cantidad))
+                                val talla = dc.document.get("talla") as String
+                                compra.add(hashMapOf("producto" to producto!!, "cantidad" to cantidad, "talla" to talla))
                             }
                         }
                     }
@@ -95,6 +96,7 @@ class FacturaFragment : Fragment() {
             val producto = i.get("producto") as Producto
             val precio = producto.precio?.toDouble()!!
             val cantidad = i.get("cantidad") as Long
+            val talla = i.get("talla") as String
             val precioUnitario = precio/iva
             val subtotal = precioUnitario*cantidad
             val valorIva = precio-precioUnitario
@@ -108,7 +110,7 @@ class FacturaFragment : Fragment() {
             val valorSubtotalLbl = factura.findViewById<TextView>(R.id.valorSubtotalLbl)
             val precioTotalLbl = factura.findViewById<TextView>(R.id.precioTotalLbl)
 
-            tituloProductoFactura.text = producto.titulo
+            tituloProductoFactura.text = "${producto.titulo}, Talla: $talla"
             valorUnitarioLbl.text = getFormatedPrice(precioUnitario.roundToInt())
             valorIvaLbl.text = getFormatedPrice(valorIva.roundToInt())
             cantidadLbl.text = "x${cantidad}"
@@ -116,7 +118,7 @@ class FacturaFragment : Fragment() {
             precioTotalLbl.text = getFormatedPrice(precioTotal.roundToInt())
 
             val facturaIndividual = hashMapOf<String, Serializable>(
-                "producto" to producto.titulo.toString(),
+                "producto" to "${producto.titulo}, Talla: $talla",
                 "precioUnitario" to precioUnitario.roundToInt(),
                 "precioIva" to valorIva.roundToInt(),
                 "cantidad" to "x${cantidad}",

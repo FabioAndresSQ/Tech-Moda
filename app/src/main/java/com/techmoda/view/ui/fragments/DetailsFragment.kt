@@ -32,6 +32,13 @@ class DetailsFragment : Fragment() {
     private lateinit var itemLessBtn : Button
     private lateinit var itemPlusBtn : Button
     private lateinit var itemCantidadLbl : TextView
+    private lateinit var tallasLayout : LinearLayout
+    private lateinit var tallaXsBtn : Button
+    private lateinit var tallaSBtn : Button
+    private lateinit var tallaMBtn : Button
+    private lateinit var tallaLBtn : Button
+    private lateinit var tallaXlBtn : Button
+    private var tallaSelected = ""
     private var cantidad = 1
     private val db = FirebaseFirestore.getInstance()
 
@@ -57,6 +64,18 @@ class DetailsFragment : Fragment() {
         itemPlusBtn = view.findViewById(R.id.itemPlusBtn)
         itemCantidadLbl = view.findViewById(R.id.itemCantidadLbl)
         containerImages = view.findViewById(R.id.containerImages) //LinearLayout containing Images
+        tallasLayout = view.findViewById(R.id.tallasLayout) //LinearLayout containing tallas
+        tallaXsBtn = view.findViewById(R.id.tallaXsBtn)
+        tallaSBtn = view.findViewById(R.id.tallaSBtn)
+        tallaMBtn = view.findViewById(R.id.tallaMBtn)
+        tallaLBtn = view.findViewById(R.id.tallaLBtn)
+        tallaXlBtn = view.findViewById(R.id.tallaXlBtn)
+
+        tallaXsBtn.isEnabled = false
+        tallaSBtn.isEnabled = false
+        tallaMBtn.isEnabled = false
+        tallaLBtn.isEnabled = false
+        tallaXlBtn.isEnabled = false
 
         setup()
 
@@ -120,26 +139,92 @@ class DetailsFragment : Fragment() {
         }
 
         addToCartBtn.setOnClickListener {
-            val prefs = context?.getSharedPreferences(getString(R.string.cart_file), Context.MODE_PRIVATE)?.edit()
-            prefs?.putString("${producto.id}", "${producto.id},$cantidad")
-            Log.d("added", "${producto.id},$cantidad")
-            prefs?.apply()
-            val acc = context?.getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
-            val email = acc?.getString("email", null)!!
-            Log.d("added", "${producto.id},$cantidad")
-            prefs?.apply()
 
-            //Save product to Carrito Db
-            db.collection("carrito").document(email).collection("cart")
-                .document(producto.id.toString()).set(
-                hashMapOf("cantidad" to cantidad,
-                    "producto" to db.document("productos/${producto.id.toString()}"))
-            )
-            Toast.makeText(context,"Añadido al Carrito", Toast.LENGTH_SHORT).show()
+            if (tallaSelected != ""){
+                val prefs = context?.getSharedPreferences(getString(R.string.cart_file), Context.MODE_PRIVATE)?.edit()
+                prefs?.putString("${producto.id}", "${producto.id},$cantidad")
+                Log.d("added", "${producto.id},$cantidad")
+                prefs?.apply()
+                val acc = context?.getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
+                val email = acc?.getString("email", null)!!
+                Log.d("added", "${producto.id},$cantidad")
+                prefs?.apply()
+
+                //Save product to Carrito Db
+                db.collection("carrito").document(email).collection("cart")
+                    .document(producto.id.toString()).set(
+                        hashMapOf("cantidad" to cantidad,
+                            "talla" to tallaSelected,
+                            "producto" to db.document("productos/${producto.id.toString()}"))
+                    )
+                Toast.makeText(context,"Añadido al Carrito", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context,"Seleccione una Talla", Toast.LENGTH_SHORT).show()
+            }
+
 
         }
 
+        val tallas = producto.tallas?.split(",")
 
+        if (tallas != null){
+            for (i in tallas){
+                if (i == "XS"){
+                    tallaXsBtn.isEnabled = true
+                }else if (i == "S"){
+                    tallaSBtn.isEnabled = true
+                }else if (i == "M"){
+                    tallaMBtn.isEnabled = true
+                }else if (i == "L"){
+                    tallaLBtn.isEnabled = true
+                }else if (i == "XL"){
+                    tallaXlBtn.isEnabled = true
+                }
+            }
+        }
+
+        for (i in tallasLayout){
+            i.setOnClickListener {
+                setTalla(i)
+            }
+        }
+
+    }
+
+    private fun setTalla(i: View){
+        for (it in tallasLayout){
+            val btn = it as Button
+            btn.setTextColor(resources.getColor(R.color.black))
+            btn.setBackgroundResource(R.drawable.customborder)
+        }
+        val button = i as Button
+        when (button.id){
+            R.id.tallaXsBtn -> {
+                i.setTextColor(resources.getColor(R.color.white))
+                i.setBackgroundResource(R.drawable.customborderselected)
+                tallaSelected = "Xs"
+            }
+            R.id.tallaSBtn -> {
+                i.setTextColor(resources.getColor(R.color.white))
+                i.setBackgroundResource(R.drawable.customborderselected)
+                tallaSelected = "S"
+            }
+            R.id.tallaMBtn -> {
+                i.setTextColor(resources.getColor(R.color.white))
+                i.setBackgroundResource(R.drawable.customborderselected)
+                tallaSelected = "M"
+            }
+            R.id.tallaLBtn -> {
+                i.setTextColor(resources.getColor(R.color.white))
+                i.setBackgroundResource(R.drawable.customborderselected)
+                tallaSelected = "L"
+            }
+            R.id.tallaXlBtn -> {
+                i.setTextColor(resources.getColor(R.color.white))
+                i.setBackgroundResource(R.drawable.customborderselected)
+                tallaSelected = "Xl"
+            }
+        }
     }
 
     private fun getFormatedPrice(price : String): String{

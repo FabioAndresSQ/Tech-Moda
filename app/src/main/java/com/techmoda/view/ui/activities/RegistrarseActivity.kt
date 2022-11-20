@@ -1,5 +1,6 @@
 package com.techmoda.view.ui.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import com.techmoda.ProviderType
 import com.techmoda.R
 import java.lang.Exception
@@ -27,11 +29,15 @@ class RegistrarseActivity : AppCompatActivity() {
     private val GOOGLE_SIGN_IN = 100
     private lateinit var txtEmail : EditText
     private lateinit var txtPassword : EditText
+    private lateinit var txtNombre : EditText
+    private lateinit var txtApellidos : EditText
     private lateinit var txtConfirmPassword : EditText
     private lateinit var registrarBtn : Button
     private lateinit var goToLoginBtn : Button
     private lateinit var googleLoginBtn : ImageButton
+    private val db = FirebaseFirestore.getInstance()
 
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registrarse)
@@ -39,6 +45,8 @@ class RegistrarseActivity : AppCompatActivity() {
         //Assign views by id
         txtEmail = findViewById(R.id.txtEmail)
         txtPassword = findViewById(R.id.txtPassword)
+        txtNombre = findViewById(R.id.txtNombre)
+        txtApellidos = findViewById(R.id.txtApellidos)
         txtConfirmPassword = findViewById(R.id.txtConfirmPassword)
         registrarBtn = findViewById(R.id.registrarseBtn)
         goToLoginBtn = findViewById(R.id.goToLoginBtn)
@@ -61,7 +69,7 @@ class RegistrarseActivity : AppCompatActivity() {
 
     private fun setup(){
         registrarBtn.setOnClickListener {
-            if (checkEmail() && checkPassword()){ //Email and Password are correct
+            if (checkName() && checkEmail() && checkPassword()){ //Email and Password are correct
                 //Access Firebase Auth
                 try {
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(txtEmail.text.toString(),
@@ -69,6 +77,10 @@ class RegistrarseActivity : AppCompatActivity() {
 
                         if (it.isSuccessful){
                             Toast.makeText(this, "Successful", Toast.LENGTH_SHORT).show()
+                            db.collection("users").document(it.result?.user?.email ?: "").set(
+                                hashMapOf("provider" to ProviderType.BASIC.name,
+                                    "nombre" to "${txtNombre.text} ${txtApellidos.text}")
+                            )
                             showHomePage(it.result?.user?.email ?: "", ProviderType.BASIC)
                         }else{
                             Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
@@ -138,6 +150,21 @@ class RegistrarseActivity : AppCompatActivity() {
             Toast.makeText(this, "El E-mail esta Vacio", Toast.LENGTH_SHORT).show()
             txtEmail.requestFocus()
             false
+        }
+    }
+
+    private fun checkName() : Boolean{
+        val nombre = txtNombre.text
+        val apellido = txtApellidos.text
+
+        return if (nombre.isNullOrEmpty()){
+            Toast.makeText(this, "El Nombre no puede estar Vacio", Toast.LENGTH_SHORT).show()
+            false
+        } else if (apellido.isNullOrEmpty()){
+            Toast.makeText(this, "El Apellido no puede estar Vacio", Toast.LENGTH_SHORT).show()
+            false
+        } else{
+            true
         }
     }
 

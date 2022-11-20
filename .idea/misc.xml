@@ -6,6 +6,7 @@
         <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/drawable-anydpi/ic_action_name.xml" value="0.176" />
         <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.176" />
         <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/drawable/customborder.xml" value="0.176" />
+        <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/drawable/customborderselected.xml" value="0.176" />
         <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/drawable/custombordershadow.xml" value="0.176" />
         <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/drawable/ic_facebooklogo.xml" value="0.176" />
         <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/drawable/ic_googlelogo.xml" value="0.176" />
@@ -24,7 +25,7 @@
         <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/layout/factura_item_template.xml" value="0.25" />
         <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/layout/fragment_bar_code.xml" value="0.21" />
         <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/layout/fragment_carrito.xml" value="0.25" />
-        <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/layout/fragment_comentarios.xml" value="0.15715579710144928" />
+        <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/layout/fragment_comentarios.xml" value="0.18" />
         <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/layout/fragment_contacto.xml" value="0.16621376811594202" />
         <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/layout/fragment_details.xml" value="0.25" />
         <entry key="..\:/Users/Fabio Andres/AndroidStudioProjects/TechModa/app/src/main/res/layout/fragment_factura.xml" value="0.15715579710144928" />

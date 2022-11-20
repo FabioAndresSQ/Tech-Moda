@@ -3,8 +3,7 @@ package com.techmoda.repo
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
 import com.techmoda.model.Producto
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
@@ -16,26 +15,34 @@ class RepoConnectCarrito {
     fun getProductosCarrito(email: String): LiveData<MutableList<HashMap<String, Serializable>>> {
         val productosdata = MutableLiveData<MutableList<HashMap<String, Serializable>>>()
         val db = FirebaseFirestore.getInstance()
+        val lista : MutableList<HashMap<String, Serializable>> = mutableListOf()
         db.collection("carrito").document(email).collection("cart")
-            .get().addOnSuccessListener {
-                val lista : MutableList<HashMap<String, Serializable>> = mutableListOf()
-                if (it != null){
-                    for (i in it){
-                        val product : DocumentReference = i.get("producto") as DocumentReference
-                        product.get().addOnSuccessListener {
-                            val productoFirestore = it.toObject(Producto::class.java)
-                            val cantidad = i.get("cantidad") as Long
-                            lista.add(hashMapOf("producto" to productoFirestore!!, "cantidad" to cantidad))
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    if (error != null){
+                        Log.e("Compra error", error.message.toString())
+                        return
+                    }
+                    for (dc: DocumentChange in value?.documentChanges!!){
+                        if (dc.type == DocumentChange.Type.ADDED){
+                            val productoReference = dc.document.get("producto") as DocumentReference
+                            productoReference.addSnapshotListener { value, error ->
+                                if (error != null){
+                                    Log.e("compra error", error.message.toString())
+                                }
+                                val producto = value?.toObject(Producto::class.java)
+                                val cantidad = dc.document.get("cantidad") as Long
+                                val talla = dc.document.get("talla") as String
+                                lista.add(hashMapOf("producto" to producto!!, "cantidad" to cantidad, "talla" to talla))
+
+                                productosdata.value = lista
+                                Log.d("Carrito Loaded", productosdata.toString())
+                            }
                         }
                     }
                 }
-                runBlocking {
-                    launch {  }
-                    delay(500L)
-                }
-                productosdata.value = lista
-                Log.d("Carrito Loaded", productosdata.toString())
-            }
+
+            })
         return productosdata
     }
 }
