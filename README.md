@@ -1,5 +1,5 @@
 # Tech-Moda
-Tech Moda Repository
+Tech Moda Repository.
 In this app we develop a mobile app store for clothing called TechModa. This app was made by Fabio Sanchez (Scrum Master) and all the collaborators on this repository
 for MisionTIC 2022 in Universidad Nacional de Colombia
 
