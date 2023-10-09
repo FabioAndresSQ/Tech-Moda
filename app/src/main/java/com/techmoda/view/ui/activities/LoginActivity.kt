@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -85,6 +86,7 @@ class LoginActivity : AppCompatActivity() {
                             showHomePage(it.result?.user?.email ?: "", ProviderType.BASIC, "default")
                         }else{
                             Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                            Log.d("ERROR LOGIN", "setup: ${it.exception}")
                             showErrorAlert("Error al autenticar al Usuario")
                         }
                     }
@@ -131,6 +133,7 @@ class LoginActivity : AppCompatActivity() {
                                 showHomePage(it.result?.user?.email ?: "", ProviderType.GOOGLE, imageUrl)
                             } else {
                                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                                Log.d("ERROR LOGIN", "setup: ${it.exception}")
                                 showErrorAlert("Error al autenticar con Google")
                             }
                         }

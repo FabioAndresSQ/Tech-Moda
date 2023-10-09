@@ -110,7 +110,7 @@ class DetailsFragment : Fragment() {
                 .getReferenceFromUrl(imagesUrlList[i])
                 .downloadUrl.addOnSuccessListener {Uri->
                     val imageUrl = Uri.toString()
-                        Glide.with(context).load(imageUrl).into(imageContainer)
+                        Glide.with(requireContext()).load(imageUrl).into(imageContainer)
                     }
                 }
         }

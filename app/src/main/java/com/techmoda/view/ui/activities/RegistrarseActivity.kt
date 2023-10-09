@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -125,12 +126,14 @@ class RegistrarseActivity : AppCompatActivity() {
                                 showHomePage(it.result?.user?.email ?: "", ProviderType.GOOGLE)
                             } else {
                                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                                Log.d("ERROR LOGIN_REGIST", "setup: ${it.exception}")
                                 showErrorAlert("Error al autenticar con Google")
                             }
                         }
                 }
             } catch (e : ApiException){
                 showErrorAlert("Error al autenticar con Google")
+                Log.d("ERROR LOGIN_REGIST", "setup: ${e}")
             }
         }
     }
