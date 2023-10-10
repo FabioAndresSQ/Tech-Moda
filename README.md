@@ -41,6 +41,7 @@ You can either register with email or use this credentials:
 
 Remember that since this app is not on app store, Google login is not working.
 
-You can download the current app here -> https://drive.google.com/file/d/18gmXnY5gi5sJYGqZQIpLGXn6lIWNWeAu/view?usp=sharing
+You can download the current app here -> 
+<a href="https://drive.google.com/file/d/1tu5xv67e31sEnnBQ8QYqOVvZc5omj5VR/view?usp=sharing">DOWNLOAD NOW</a>
 
 
