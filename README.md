@@ -34,9 +34,10 @@ This app was made for Learning purposes and it's not manetizable by any way.
 
 # Download
 
-You can either register with email or use this credentials: 
+** You can either register with email or use this credentials: **
 
 email -> test@techmoda.com
+
 pass -> 12345678
 
 Remember that since this app is not on app store, Google login is not working.
