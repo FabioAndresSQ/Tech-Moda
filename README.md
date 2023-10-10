@@ -39,7 +39,7 @@ You can either register with email or use this credentials:
 * email -> test@techmoda.com
 * pass -> 12345678
 
-Remember that since this app is not on app store, Google login is not working.
+Remember that since this app is not on app store, Google login is available only in Debug mode.
 
 You can download the current app here -> 
 <a href="https://drive.google.com/file/d/1tu5xv67e31sEnnBQ8QYqOVvZc5omj5VR/view?usp=sharing">DOWNLOAD NOW</a>
